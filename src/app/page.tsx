@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link'; // Importation indispensable pour la navigation
 
 export default function Home() {
   const courses = [
@@ -21,23 +22,17 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section (En-tête) */}
+      {/* Hero Section */}
       <header className="py-20 px-8 text-center bg-gradient-to-r from-blue-600 to-indigo-800 text-white">
         <h2 className="text-5xl font-extrabold mb-6">Maîtrisez votre avenir.</h2>
         <p className="text-xl text-blue-100 opacity-90 max-w-2xl mx-auto mb-8">
-          Apprenez les compétences les plus demandées avec des experts du domaine. Accès illimité et flexible.
+          Apprenez les compétences les plus demandées avec des experts du domaine.
         </p>
-        <button className="bg-white text-blue-600 font-bold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition">
-          Explorer les cours
-        </button>
       </header>
 
       {/* Grille des cours */}
       <main className="max-w-6xl mx-auto py-16 px-8">
-        <div className="flex justify-between items-center mb-10">
-          <h3 className="text-3xl font-bold text-gray-800">Nos Cours Populaires</h3>
-          <div className="text-blue-600 font-semibold cursor-pointer hover:underline">Voir tout →</div>
-        </div>
+        <h3 className="text-3xl font-bold text-gray-800 mb-10">Nos Cours Populaires</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {courses.map((course) => (
@@ -50,7 +45,14 @@ export default function Home() {
                 <h4 className="text-xl font-bold mt-3 mb-4 text-gray-900 leading-tight">{course.title}</h4>
                 <div className="flex justify-between items-center text-gray-500 text-sm border-t pt-4">
                   <span className="flex items-center">⏱️ {course.duration}</span>
-                  <button className="bg-gray-900 text-white px-4 py-2 rounded-lg text-xs hover:bg-blue-600 transition">Accéder</button>
+                  
+                  {/* C'EST CE BOUTON ICI QU'ON CHANGE POUR AJOUTER LE LIEN */}
+                  <Link href={`/courses/${course.id}`}>
+                    <button className="bg-gray-900 text-white px-4 py-2 rounded-lg text-xs hover:bg-blue-600 transition">
+                      Accéder au cours
+                    </button>
+                  </Link>
+                  
                 </div>
               </div>
             </div>
@@ -58,10 +60,9 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Pied de page */}
       <footer className="bg-gray-900 text-gray-400 py-12 px-8 text-center mt-auto">
         <p className="text-white font-bold mb-4">Mon Académie Pro</p>
-        <p className="text-sm">© 2024 Plateforme E-Learning. Déployée avec succès sur Vercel.</p>
+        <p className="text-sm">© 2024 Plateforme E-Learning.</p>
       </footer>
     </div>
   );
