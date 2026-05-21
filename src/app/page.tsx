@@ -1,69 +1,61 @@
-import React from 'react';
-import Link from 'next/link'; // Importation indispensable pour la navigation
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   const courses = [
-    { id: 1, title: "Développement Web Pro", level: "Débutant", duration: "12h", color: "bg-blue-500" },
-    { id: 2, title: "Design UI/UX Master", level: "Intermédiaire", duration: "8h", color: "bg-purple-500" },
-    { id: 3, title: "Bases de la Data Science", level: "Débutant", duration: "15h", color: "bg-green-500" },
+    { id: "1", title: "Mastering Next.js 16", instructor: "Sarah Drasner", level: "Advanced", image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop&q=60" },
+    { id: "2", title: "Tailwind 4 Design Systems", instructor: "Adam W.", level: "Intermediate", image: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&auto=format&fit=crop&q=60" },
+    { id: "3", title: "Fullstack Architecture", instructor: "Lee Robinson", level: "Pro", image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60" },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
-      {/* Barre de Navigation */}
-      <nav className="bg-white border-b px-8 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
-        <h1 className="text-2xl font-bold text-blue-600">Mon Académie Pro</h1>
-        <div className="hidden md:flex space-x-8 text-gray-600 font-medium">
-          <a href="#" className="hover:text-blue-600 transition">Cours</a>
-          <a href="#" className="hover:text-blue-600 transition">Mes Formations</a>
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition shadow-md">
-            Connexion
-          </button>
+    <div className="min-h-screen bg-slate-50">
+      {/* Navigation Bar */}
+      <nav className="border-b bg-white p-4">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            ProLMS
+          </h1>
+          <div className="flex gap-4">
+            <Button variant="ghost">My Learning</Button>
+            <Button>Sign In</Button>
+          </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <header className="py-20 px-8 text-center bg-gradient-to-r from-blue-600 to-indigo-800 text-white">
-        <h2 className="text-5xl font-extrabold mb-6">Maîtrisez votre avenir.</h2>
-        <p className="text-xl text-blue-100 opacity-90 max-w-2xl mx-auto mb-8">
-          Apprenez les compétences les plus demandées avec des experts du domaine.
-        </p>
-      </header>
+      <main className="max-w-7xl mx-auto p-6 md:p-12">
+        {/* Hero Section */}
+        <div className="mb-12">
+          <h2 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+            Welcome back, Expert.
+          </h2>
+          <p className="mt-4 text-lg text-slate-600">
+            Pick up exactly where you left off. 85% of your current module is complete.
+          </p>
+        </div>
 
-      {/* Grille des cours */}
-      <main className="max-w-6xl mx-auto py-16 px-8">
-        <h3 className="text-3xl font-bold text-gray-800 mb-10">Nos Cours Populaires</h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Course Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course) => (
-            <div key={course.id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-gray-100 group">
-              <div className={`h-48 ${course.color} flex items-center justify-center text-white text-6xl group-hover:scale-105 transition-transform duration-300`}>
-                {course.title[0]}
-              </div>
-              <div className="p-6">
-                <span className="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-1 rounded">{course.level}</span>
-                <h4 className="text-xl font-bold mt-3 mb-4 text-gray-900 leading-tight">{course.title}</h4>
-                <div className="flex justify-between items-center text-gray-500 text-sm border-t pt-4">
-                  <span className="flex items-center">⏱️ {course.duration}</span>
-                  
-                  {/* C'EST CE BOUTON ICI QU'ON CHANGE POUR AJOUTER LE LIEN */}
-                  <Link href={`/courses/${course.id}`}>
-                    <button className="bg-gray-900 text-white px-4 py-2 rounded-lg text-xs hover:bg-blue-600 transition">
-                      Accéder au cours
-                    </button>
-                  </Link>
-                  
+            <Card key={course.id} className="overflow-hidden border-none shadow-md hover:shadow-xl transition-all">
+              <img src={course.image} alt={course.title} className="h-48 w-full object-cover" />
+              <CardHeader>
+                <div className="flex justify-between items-center mb-2">
+                  <Badge variant="outline">{course.level}</Badge>
                 </div>
-              </div>
-            </div>
+                <CardTitle>{course.title}</CardTitle>
+                <CardDescription>Instructor: {course.instructor}</CardDescription>
+              </CardHeader>
+              <CardFooter className="bg-slate-50/50 p-4 border-t">
+                <Button className="w-full" asChild>
+                  <a href={`/courses/${course.id}`}>Continue Learning</a>
+                </Button>
+              </CardFooter>
+            </Card>
           ))}
         </div>
       </main>
-
-      <footer className="bg-gray-900 text-gray-400 py-12 px-8 text-center mt-auto">
-        <p className="text-white font-bold mb-4">Mon Académie Pro</p>
-        <p className="text-sm">© 2024 Plateforme E-Learning.</p>
-      </footer>
     </div>
   );
 }
